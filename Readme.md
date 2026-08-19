@@ -62,4 +62,4 @@ symfony serve
 
 Individual tests
 
-`php bin/phpunit tests/FILENAME.pphp`
+`php bin/phpunit tests/[FILENAME].php`
