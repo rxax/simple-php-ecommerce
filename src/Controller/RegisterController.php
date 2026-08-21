@@ -15,12 +15,12 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Authentication\UserAuthenticatorInterface;
 
 /**
- * Formulaire d'inscription créé manuellement
+ * Formulaire d'Sign-up créé manuellement
  * Une fois inscris, l'utilisateur est automatiquement authentifié.
  */
 class RegisterController extends AbstractController
 {
-    #[Route('/inscription', name: 'register')]
+    #[Route('/Sign-up', name: 'register')]
     public function index(Request $request, UserPasswordHasherInterface $userPasswordHasher, UserAuthenticatorInterface $userAuthenticator, LoginAuthenticator $authenticator, EntityManagerInterface $em): Response
     {
         $user = new User();
@@ -35,8 +35,8 @@ class RegisterController extends AbstractController
             $em->flush();
 
             // Envoi mail confirmation
-            $content = "Bonjour {$user->getFirstname()} nous vous remercions de votre inscription";
-            (new Mail)->send($user->getEmail(), $user->getFirstname(), "Bienvenue sur la Boot'ique", $content);
+            $content = "Bonjour {$user->getFirstName()} nous vous remercions de votre Sign-up";
+            (new Mail)->send($user->getEmail(), $user->getFirstName(), "Bienvenue sur Webshop", $content);
 
             // Loggin auto
             return $userAuthenticator->authenticateUser(

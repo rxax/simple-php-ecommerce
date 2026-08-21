@@ -20,7 +20,7 @@ class Mail
                     'From' => 
                     [
                         'Email' => "bonnal.tristan@hotmail.fr",
-                        'Name' => "La Boot'ique"
+                        'Name' => "Webshop"
                     ],
                     'To' => 
                     [

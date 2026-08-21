@@ -26,7 +26,7 @@ class AccountController extends AbstractController
     }
 
     /**
-     * Permet la modification du mot de passe d'un utilisateur sur une page dédiée
+     * Permet la modification du Password d'un utilisateur sur une page dédiée
      */
     #[Route('/compte/mot-de-passe', name: 'account_password')]
     public function changePassword(Request $request, UserPasswordHasherInterface $passwordHasher, EntityManagerInterface $em): Response
@@ -45,13 +45,13 @@ class AccountController extends AbstractController
                 $em->flush();
                 $this->addFlash(
                     'notice', 
-                    'Mot de passe modifié :)'
+                    'Password modifié :)'
                 );
                 return $this->redirectToRoute('account');
             } else {
                 $this->addFlash(
                     'notice', 
-                    'Mot de passe actuel erroné :('
+                    'Password actuel erroné :('
                 );
             }
         }

@@ -88,10 +88,10 @@ class PaymentController extends AbstractController
         // Envoi mail de Confirmation
         $user = $this->getUser();
 
-        $content = "Bonjour {$user->getFirstname()} nous vous remercions de votre commande";
+        $content = "Bonjour {$user->getFirstName()} nous vous remercions de votre commande";
         (new Mail)->send(
             $user->getEmail(), 
-            $user->getFirstname(), 
+            $user->getFirstName(), 
             "Confirmation de la commande {$order->getReference()}", 
             $content
         );

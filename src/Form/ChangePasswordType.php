@@ -25,17 +25,17 @@ class ChangePasswordType extends AbstractType
             ])
             ->add('firstname', TextType::class, [
                 'disabled' => true,
-                'label' => 'Prénom'
+                'label' => 'First name'
             ])
             ->add('lastname', TextType::class, [
                 'disabled' => true,
-                'label' => 'Nom de famille'
+                'label' => 'Last name'
             ])
             ->add('old_password', PasswordType::class, [
-                'label' => 'Mot de passe actuel',
+                'label' => 'Password actuel',
                 'mapped' => false,
                 'attr' => [
-                    'placeholder' => 'Veuillez saisir votre mot de passe actuel'
+                    'placeholder' => 'Veuillez saisir votre Password actuel'
                 ]
             ])
             ->add('new_password', RepeatedType::class, [
@@ -44,12 +44,12 @@ class ChangePasswordType extends AbstractType
                 'options' => ['attr' => ['class' => 'password-field']],
                 'required' => true,
                 'first_options'  => [
-                    'label' => 'Nouveau mot de passe',
-                    'attr' => ['placeholder' => 'Saisir mot de passe souhaité']
+                    'label' => 'Nouveau Password',
+                    'attr' => ['placeholder' => 'Saisir Password souhaité']
                 ],
                 'second_options' => [
-                    'label' => 'Répétez mot de passe',
-                    'attr' => ['placeholder' => 'Confirmer mot de passe ']
+                    'label' => 'Répétez Password',
+                    'attr' => ['placeholder' => 'Confirmer Password ']
                 ],
                 'mapped' => false,
                 'attr' => [
@@ -57,11 +57,11 @@ class ChangePasswordType extends AbstractType
                 ],
                 'constraints' => [
                     new NotBlank([
-                        'message' => 'Veuillez renseigner un mot de passe',
+                        'message' => 'Veuillez renseigner un Password',
                     ]),
                     new Length([
                         'min' => 4,
-                        'minMessage' => 'Votre mot de passe doit contenir minimum 8 charactères',
+                        'minMessage' => 'Votre Password doit contenir minimum 8 charactères',
                         'max' => 4096,
                     ]),
                 ],

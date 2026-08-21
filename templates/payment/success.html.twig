@@ -1,11 +1,11 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Ma commande - La Boot'Ique{% endblock %}
+{% block title %}Ma commande - Webshop{% endblock %}
 
 {% block body %}
     <h2>Confirmation de votre commande</h2>
     <p>
-        Bonjour {{order.user.firstname}} {{order.user.lastname}}, <br>
+        Bonjour {{order.user.First name}} {{order.user.lastname}}, <br>
         Nous vous remercions de votre commande n° <b>{{order.reference}}</b>.<br>
         Une confirmation vient de vous être envoyé par mail. <br>
     </p>

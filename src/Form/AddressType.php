@@ -23,10 +23,10 @@ class AddressType extends AbstractType
                 ]
             ])
             ->add('firstname', TextType::class, [
-                'label' => 'Prénom'
+                'label' => 'First name'
             ])
             ->add('lastname', TextType::class, [
-                'label' =>'Nom de famille'
+                'label' =>'Last name'
             ])
             ->add('company', TextType::class, [
                 'label' => 'Société (facultatif)',

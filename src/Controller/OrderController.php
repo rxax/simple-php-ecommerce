@@ -73,7 +73,7 @@ class OrderController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $address = $form->get('addresses')->getData();
 
-            $delivery_string = $address->getFirstname() . ' ' . $address->getLastname();
+            $delivery_string = $address->getFirstName() . ' ' . $address->getLastname();
             $delivery_string .= '<br>' . $address->getPhone();
             $delivery_string .= '<br>' . $address->getCompany() ?? '';
             $delivery_string .= '<br>' . $address->getAddress();

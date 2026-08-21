@@ -16,10 +16,10 @@ class ContactType extends AbstractType
     {
         $builder
             ->add('firstname', TextType::class, [
-                'label'=> 'Prénom'
+                'label'=> 'First name'
             ])
             ->add('lastname', TextType::class, [
-                'label'=> 'Nom'
+                'label'=> 'Last name'
             ])
             ->add('email', EmailType::class, [
                 'label'=> 'Email'
@@ -28,7 +28,7 @@ class ContactType extends AbstractType
                 'label'=> 'Message'
             ])
             ->add('submit', SubmitType::class, [
-                'label' => 'Envoyer',
+                'label' => 'Send',
                 'attr' => [
                     'class' => 'btn btn-outline-success'
                 ]

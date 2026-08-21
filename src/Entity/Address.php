@@ -21,7 +21,7 @@ class Address
     private $name;
 
     #[ORM\Column(type: 'string', length: 255)]
-    private $firstname;
+    private $Firstname;
 
     #[ORM\Column(type: 'string', length: 255)]
     private $lastname;
@@ -73,14 +73,14 @@ class Address
         return $this;
     }
 
-    public function getFirstname(): ?string
+    public function getFirstName(): ?string
     {
-        return $this->firstname;
+        return $this->Firstname;
     }
 
-    public function setFirstname(string $firstname): self
+    public function setFirstname(string $Firstname): self
     {
-        $this->firstname = $firstname;
+        $this->Firstname = $Firstname;
 
         return $this;
     }

@@ -21,23 +21,23 @@ class RegisterType extends AbstractType
     {
         $builder
             ->add('firstname', TextType::class, [
-                'label' => 'Prénom',
+                'label' => 'First name',
                 'constraints' => new Length(['min' => 3]),
                 'attr' => [
                     'placeholder' => 'Jean'
                 ]
             ])
             ->add('lastname', TextType::class, [
-                'label' => 'Nom de famille',
+                'label' => 'Last name',
                 'constraints' => new Length(['min' => 3]),
                 'attr' => [
-                    'placeholder' => 'Passe'
+                    'placeholder' => 'Last name'
                 ]
             ])
             ->add('email', EmailType::class, [
                 'constraints' => new Email(),
                 'attr' => [
-                    'placeholder' => 'jean.passe@hotgmail.com'
+                    'placeholder' => 'yourname@email.com'
                 ]
             ])
             ->add('password', RepeatedType::class, [
@@ -46,12 +46,12 @@ class RegisterType extends AbstractType
                 'options' => ['attr' => ['class' => 'password-field']],
                 'required' => true,
                 'first_options'  => [
-                    'label' => 'Mot de passe',
-                    'attr' => ['placeholder' => 'Saisir mot de passe ']
+                    'label' => 'Password',
+                    'attr' => ['placeholder' => 'Enter password ']
                 ],
                 'second_options' => [
-                    'label' => 'Répétez mot de passe',
-                    'attr' => ['placeholder' => 'Confirmer mot de passe ']
+                    'label' => 'Repeat password',
+                    'attr' => ['placeholder' => 'Confirm password ']
                 ],
                 'mapped' => false,
                 'attr' => [
@@ -59,17 +59,17 @@ class RegisterType extends AbstractType
                 ],
                 'constraints' => [
                     new NotBlank([
-                        'message' => 'Veuillez renseigner un mot de passe',
+                        'message' => 'Please enter a password.',
                     ]),
                     new Length([
                         'min' => 4,
-                        'minMessage' => 'Votre mot de passe doit contenir minimum 8 charactères',
+                        'minMessage' => 'Your password must contain at least 8 characters.',
                         'max' => 4096,
                     ]),
                 ],
             ])
             ->add('submit', SubmitType::class, [
-                'label' => 'Valider',
+                'label' => 'Validate',
                 'attr' => [
                     'class' => 'btn btn-outline-success'
                 ]
