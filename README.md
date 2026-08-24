@@ -18,7 +18,7 @@ Features:
 
 ## Stack used:
 
-- Symfony 6.4
+- Symfony 7.4
 - Easy Admin
 - Twig
 - Bootstrap
