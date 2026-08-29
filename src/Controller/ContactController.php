@@ -25,7 +25,7 @@ class ContactController extends AbstractController
             $mail->send('empty@gmail.com', 'Andrew', 'Contact via WebShop', $content);
         }
 
-        return $this->renderForm('contact/index.html.twig', [
+        return $this->render('contact/index.html.twig', [
             'form' => $form,
         ]);
     }

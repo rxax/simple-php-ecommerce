@@ -41,7 +41,7 @@ class AddressController extends AbstractController
             return $this->redirectToRoute('account_address');
         }
 
-        return $this->renderForm('account/address_form.html.twig', [
+        return $this->render('account/address_form.html.twig', [
             'form' => $form
         ]);
     }
@@ -64,7 +64,7 @@ class AddressController extends AbstractController
             return $this->redirectToRoute('account_address');
         }
 
-        return $this->renderForm('account/address_form.html.twig', [
+        return $this->render('account/address_form.html.twig', [
             'form' => $form
         ]);
     }
