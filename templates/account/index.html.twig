@@ -1,10 +1,10 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Mon compte - Webshop{% endblock %}
+{% block title %}My account - Webshop{% endblock %}
 
 {% block body %}
-    <h2>Mon compte</h2>
-    Bienvenue dans votre espace membre {{ app.user.Firstname }}.
+    <h2>My account</h2>
+    Welcome to your member area {{ app.user.Firstname }}.
     <hr>
     {% for message in app.flashes('notice') %}
         <div class="alert alert-success">
@@ -18,13 +18,13 @@
         </a> 
         {% endif %}
         <a href="{{ path('account_orders') }}" class="list-group-item list-group-item-action">
-            Mes commandes
+            My orders
         </a>
         <a href="{{ path('account_address') }}" class="list-group-item list-group-item-action">
-            Gérer mes adresses
+            Manage my addresses
         </a>
         <a href="{{ path('account_password') }}" class="list-group-item list-group-item-action">
-            Modifier Password
+            Change password
         </a>
     </div>
 

@@ -12,11 +12,11 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class ProductController extends AbstractController
 {
-    #[Route('/articles', name: 'product')]
+    #[Route('/products', name: 'product')]
     public function index(ProductRepository $repository, Request $request): Response
     {
        
-        // Si recherche exécutée, $products contiendra les résultats filtrés
+        // If search is executed, $products will contain filtered results
         $search = new Search();
         $form = $this->createForm(SearchType::class, $search);
         $form->handleRequest($request);
@@ -34,7 +34,7 @@ class ProductController extends AbstractController
         ]);
     }
 
-    #[Route('/articles/{slug}', name: 'product_show')]
+    #[Route('/products/{slug}', name: 'product_show')]
     public function show(ProductRepository $repository, string $slug): Response
     {
         $product = $repository->findOneBySlug($slug);

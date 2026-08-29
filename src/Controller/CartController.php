@@ -10,12 +10,12 @@ use Symfony\Component\Routing\Annotation\Route;
 class CartController extends AbstractController
 {
     /**
-     * Récupère un panier détaillé contenant des objets Products et les totaux de quantité et de prix 
+     * Retrieves a detailed cart containing Product objects and quantity/price totals
      * 
      * @param Cart $cart
      * @return Response
      */
-    #[Route('/mon-panier', name: 'cart')]
+    #[Route('/my-cart', name: 'cart')]
     public function index(Cart $cart): Response
     {
         $cartProducts = $cart->getDetails();
@@ -28,12 +28,12 @@ class CartController extends AbstractController
     }
 
     /**
-     * Ajoute un article au panier (id du produit) et incrémente la quantitée (voir classe Cart)
+     * Adds an item to the cart (product id) and increments quantity (see Cart class)
      * @param Cart $cart
      * @param int $id
-     * @return Repsonse
+     * @return Response
      */
-    #[Route('/panier/ajouter/{id}', name: 'add_to_cart')]
+    #[Route('/cart/add/{id}', name: 'add_to_cart')]
     public function add(Cart $cart, int $id): Response
     {
         $cart->add($id);
@@ -41,12 +41,12 @@ class CartController extends AbstractController
     }
 
     /**
-     * Réduit de 1 la quantité pour un article du panier
+     * Decreases by 1 the quantity for an item in the cart
      * @param Cart $cart
      * @param int $id
-     * @return Repsonse
+     * @return Response
      */
-    #[Route('/panier/réduire/{id}', name: 'decrease_item')]
+    #[Route('/cart/decrease/{id}', name: 'decrease_item')]
     public function decrease(Cart $cart, int $id): Response
     {
         $cart->decreaseItem($id);
@@ -54,12 +54,12 @@ class CartController extends AbstractController
     }
     
     /**
-     * Supprime une ligne d'articles du panier
+     * Removes a row of items from the cart
      *
      * @param Cart $cart
      * @return Response
      */
-    #[Route('/panier/supprimer/{id}', name: 'remove_cart_item')]
+    #[Route('/cart/remove/{id}', name: 'remove_cart_item')]
     public function removeItem(Cart $cart, int $id): Response
     {
         $cart->removeItem($id);
@@ -67,12 +67,12 @@ class CartController extends AbstractController
     }
 
     /**
-     * Vide le panier entièrement
+     * Empties the cart entirely
      *
      * @param Cart $cart
      * @return Response
      */
-    #[Route('/panier/supprimer/', name: 'remove_cart')]
+    #[Route('/cart/clear', name: 'remove_cart')]
     public function remove(Cart $cart): Response
     {
         $cart->remove();

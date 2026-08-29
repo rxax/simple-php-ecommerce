@@ -24,7 +24,7 @@ class RegisterType extends AbstractType
                 'label' => 'First name',
                 'constraints' => new Length(['min' => 3]),
                 'attr' => [
-                    'placeholder' => 'Jean'
+                    'placeholder' => 'John'
                 ]
             ])
             ->add('lastname', TextType::class, [
@@ -42,7 +42,7 @@ class RegisterType extends AbstractType
             ])
             ->add('password', RepeatedType::class, [
                 'type' => PasswordType::class,
-                'invalid_message' => 'Les mots de passe doivent être identiques',
+                'invalid_message' => 'The passwords must match',
                 'options' => ['attr' => ['class' => 'password-field']],
                 'required' => true,
                 'first_options'  => [
@@ -63,7 +63,7 @@ class RegisterType extends AbstractType
                     ]),
                     new Length([
                         'min' => 4,
-                        'minMessage' => 'Your password must contain at least 8 characters.',
+                        'minMessage' => 'Your password must contain at least 4 characters.',
                         'max' => 4096,
                     ]),
                 ],

@@ -13,15 +13,15 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class AddressController extends AbstractController
 {
-    #[Route('compte/adresses', name: 'account_address')]
+    #[Route('account/addresses', name: 'account_address')]
     public function index(): Response
     {
-        // Adresses récupérées directement dans la vue grâce à app.user
+        // Addresses retrieved directly in the view thanks to app.user
         return $this->render('account/address.html.twig', [
         ]);
     }
 
-    #[Route('compte/adresses/ajouter', name: 'account_address_new')]
+    #[Route('account/addresses/add', name: 'account_address_new')]
     public function add(Request $request, EntityManagerInterface $em, SessionInterface $session): Response
     {
         $address = new Address();
@@ -34,7 +34,7 @@ class AddressController extends AbstractController
 
             $em->persist($address);
             $em->flush();
-            if ($session->get('order') === 1) {       //Redirection vers la commande si celle-ci a été amorcée
+            if ($session->get('order') === 1) {       // Redirection to checkout if it was initiated
                 $session->set('order', 0);
                 return $this->redirectToRoute('order');
             }
@@ -46,7 +46,7 @@ class AddressController extends AbstractController
         ]);
     }
 
-    #[Route('compte/adresses/modifier/{id}', name: 'account_address_update')]
+    #[Route('account/addresses/edit/{id}', name: 'account_address_update')]
     public function update(Request $request, EntityManagerInterface $em, Address $address = null): Response
     {
         if (!$address || $address->getUser() != $this->getUser()) {
@@ -69,7 +69,7 @@ class AddressController extends AbstractController
         ]);
     }
 
-    #[Route('compte/adresses/supprimer/{id}', name: 'account_address_delete')]
+    #[Route('account/addresses/delete/{id}', name: 'account_address_delete')]
     public function delete(EntityManagerInterface $em, Address $address = null): Response
     {
         if ($address && $address->getUser() == $this->getUser()) {

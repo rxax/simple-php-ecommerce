@@ -16,31 +16,31 @@ use Symfony\Component\Routing\Annotation\Route;
 class OrderController extends AbstractController
 {
     /**
-     * Récupération du panier, choix de l'adresse et du transporteur
+     * Retrieve the cart, choose address and carrier
      *
      * @param SessionInterface $session
      * @param Cart $cart
      * @return Response
      */
-    #[Route('/commande', name: 'order')]
+    #[Route('/order', name: 'order')]
     public function index(SessionInterface $session, Cart $cart): Response
     {
         $user = $this->getUser();
         $cartProducts = $cart->getDetails();
 
-        // Redirection si panier vide
+        // Redirect if cart is empty
         if (empty($cartProducts['products'])) {   
             return $this->redirectToRoute('product');
         }
         
-        //Redirection si utilisateur n'a pas encore d'adresse
-        if (!$user->getAddresses()->getValues()) {      //getValues() Récupère directement les valeurs d'une collection d'objet
+        // Redirect if user has no address yet
+        if (!$user->getAddresses()->getValues()) {      // getValues() directly retrieves the values of an object collection
             $session->set('order', 1);
             return $this->redirectToRoute('account_address_new');
         }
 
         $form = $this->createForm(OrderType::class, null, [
-            'user' => $user     //Permet de passer l'utilisateur courant dans le tableau d'options du OrderType
+            'user' => $user     // Allows passing the current user to the OrderType options array
         ]); 
 
         return $this->renderForm('order/index.html.twig', [
@@ -51,21 +51,21 @@ class OrderController extends AbstractController
     }
 
     /**
-     * Enregistrement des données "en dur" de la commande contenant adresse, transporteur et produits
-     * Les relations ne sont pas directement utilisées pour la persistance des données dans les entités Order et OrderDetails
-     * pour éviter des incohérences dans le cas ou des modifications seraient faites sur les autres entités par la suite
+     * Hardcoding order data containing address, carrier, and products
+     * Relations are not directly used to persist data in Order and OrderDetails entities
+     * to avoid inconsistency in case other entities are modified later
      *
      * @param Cart $cart
      * @param Request $request
      * @return Response
      */
-    #[Route('/commande/recap', name: 'order_add', methods: 'POST')]
+    #[Route('/order/summary', name: 'order_add', methods: 'POST')]
     public function summary(Cart $cart, Request $request, EntityManagerInterface $em): Response
     {
-         //Récupération du panier en session
+         // Retrieve the cart from session
         $cartProducts = $cart->getDetails();   
 
-        //Vérification qu'un formulaire a bien été envoyé précédemment
+        // Verify that a form was submitted previously
         $form = $this->createForm(OrderType::class, null, [
             'user' => $this->getUser()     
         ]); 
@@ -83,7 +83,7 @@ class OrderController extends AbstractController
 
             $cartProducts = $cart->getDetails();
 
-            //Création de la commande avec les infos formulaire
+            // Create the order with form info
             $order = new Order;
             $date = new \DateTime;
             $order
@@ -97,7 +97,7 @@ class OrderController extends AbstractController
             ;
             $em->persist($order);
 
-            //Création des lignes de détails pour chacun des produits de la commande
+            // Create detail lines for each product in the order
             foreach ($cartProducts['products'] as $item) {
                 $orderDetails = new OrderDetails();
                 $orderDetails
@@ -111,14 +111,14 @@ class OrderController extends AbstractController
             }
             $em->flush();
 
-            // Affichage récap
+            // Display summary
             return $this->renderForm('order/add.html.twig', [
                 'cart' => $cartProducts,
                 'totalPrice' =>$cartProducts['totals']['price'],
                 'order' => $order
             ]);
         }
-        //Si pas de formulaire, page non accessible, et donc redirection vers le panier
+        // If no form, page is not accessible, redirect to cart
         return $this->redirectToRoute('cart');
     }
 }

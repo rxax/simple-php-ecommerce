@@ -20,7 +20,7 @@ class ContactController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $this->addFlash('notice', 'Message sent, we will get back to you as soon as possible.');
             $datas = $form->getData();
-            $content = "De la part de : {$datas['firstname']} {$datas['lastname']} <br> Message : {$datas['content']} <br> Email: {$datas['email']}";
+            $content = "From: {$datas['firstname']} {$datas['lastname']} <br> Message : {$datas['content']} <br> Email: {$datas['email']}";
             $mail = new Mail();
             $mail->send('empty@gmail.com', 'Andrew', 'Contact via WebShop', $content);
         }

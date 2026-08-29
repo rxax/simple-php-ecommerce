@@ -1,13 +1,13 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Mes adresses - Webshop'{% endblock %}
+{% block title %}My addresses - Webshop{% endblock %}
 
 {% block body %}
-    <h2 class="mb-4">Enregistrer une addresse</h2>
+    <h2 class="mb-4">Save an address</h2>
     {{form_start(form)}}
     <div class="row">
         <div class="col-md-12">{{form_row(form.name)}}</div>
-        <div class="col-md-6">{{form_row(form.First name)}}</div>
+        <div class="col-md-6">{{form_row(form.firstname)}}</div>
         <div class="col-md-6">{{form_row(form.lastname)}}</div>
         <div class="col-md-6">{{form_row(form.address)}}</div>
         <div class="col-md-6">{{form_row(form.postal)}}</div>
@@ -19,5 +19,5 @@
     </div>
 
     {{form_end(form)}}
-    <a title="Retour vers votre espace membres"href="{{ path('account') }}">Retourner à mon compte</a>
+    <a title="Back to member area" href="{{ path('account') }}">Back to my account</a>
 {% endblock %}

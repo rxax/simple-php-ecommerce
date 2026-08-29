@@ -14,11 +14,11 @@ use Symfony\Component\Routing\Annotation\Route;
 
 
 /**
- * Espace membre (sécurisé)
+ * Member area (secured)
  */
 class AccountController extends AbstractController
 {
-    #[Route('/compte', name: 'account')]
+    #[Route('/account', name: 'account')]
     public function index(): Response
     {
         return $this->render('account/index.html.twig', [
@@ -26,9 +26,9 @@ class AccountController extends AbstractController
     }
 
     /**
-     * Permet la modification du Password d'un utilisateur sur une page dédiée
+     * Allows user to change password on a dedicated page
      */
-    #[Route('/compte/mot-de-passe', name: 'account_password')]
+    #[Route('/account/password', name: 'account_password')]
     public function changePassword(Request $request, UserPasswordHasherInterface $passwordHasher, EntityManagerInterface $em): Response
     {
         $user = $this->getUser();
@@ -45,13 +45,13 @@ class AccountController extends AbstractController
                 $em->flush();
                 $this->addFlash(
                     'notice', 
-                    'Password modifié :)'
+                    'Password updated :)'
                 );
                 return $this->redirectToRoute('account');
             } else {
                 $this->addFlash(
                     'notice', 
-                    'Password actuel erroné :('
+                    'Incorrect current password :('
                 );
             }
         }
@@ -62,9 +62,9 @@ class AccountController extends AbstractController
     }
 
     /**
-     * Affiche la vue de toutes les commandes d'un utilisateur
+     * Shows the view with all orders for a user
      */
-    #[Route('/compte/commandes', name: 'account_orders')]
+    #[Route('/account/orders', name: 'account_orders')]
     public function showOrders(OrderRepository $repository): Response
     {
         $orders = $repository->findPaidOrdersByUser($this->getUser());
@@ -74,13 +74,13 @@ class AccountController extends AbstractController
     }
 
     /**
-     * Affiche une commande
+     * Shows an order
      */
-    #[Route('/compte/commandes/{reference}', name: 'account_order')]
+    #[Route('/account/orders/{reference}', name: 'account_order')]
     public function showOrder(Order $order): Response
     {
         if (!$order || $order->getUser() != $this->getUser()) {
-            throw $this->createNotFoundException('Commande innaccessible');
+            throw $this->createNotFoundException('Order inaccessible');
         }
         return $this->render('account/order.html.twig', [
             'order' => $order

@@ -26,14 +26,14 @@ class OrderType extends AbstractType
                 'expanded' => true
             ])
             ->add('carriers', EntityType::class, [
-                'label' => 'Choisissez votre transporteur',
+                'label' => 'Choose your carrier',
                 'required' => true,
                 'class' => Carrier::class,
                 'choice_label' => 'carrierLabel',
                 'expanded' => true
             ])
             ->add('submit', SubmitType::class, [
-                'label' => 'Passer au paiment', 
+                'label' => 'Proceed to payment',  
                 'attr' => [
                     'class' => "btn btn-outline-success btn-block"
                 ]

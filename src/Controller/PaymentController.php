@@ -16,15 +16,15 @@ use Symfony\Component\Routing\Annotation\Route;
 class PaymentController extends AbstractController
 {
     /**
-     * Etape de vérification avant confirmation du paiement
+     * Verification step before payment confirmation
      */
-    #[Route('/commande/checkout/{reference}', name: 'checkout')]
+    #[Route('/order/checkout/{reference}', name: 'checkout')]
     public function payment(OrderRepository $repository, $reference, EntityManagerInterface $em): Response
     {
-        // Récupération des produits de la dernière commande et formattage dans un tableau pour Stripe
+        // Retrieve products of the last order and format in an array for Stripe
         $order = $repository->findOneByReference($reference);
         if (!$order) {
-            throw $this->createNotFoundException('Cette commande n\'existe pas');
+            throw $this->createNotFoundException('This order does not exist');
         }
         $products = $order->getOrderDetails()->getValues();
         $productsForStripe = [];
@@ -40,7 +40,7 @@ class PaymentController extends AbstractController
                 'quantity' => $item->getQuantity()
             ];
         }
-        // Ajout des frais de livraison
+        // Add shipping fee
         $productsForStripe[] = [
             'price_data' => [
                 'currency' => 'eur',
@@ -56,12 +56,12 @@ class PaymentController extends AbstractController
 
         $YOUR_DOMAIN = 'https://ecommerce.tristan-bonnal.fr';
         
-        // Création de la session Stripe avec les données du panier
+        // Create Stripe session with cart data
         $checkout_session = Session::create([
             'line_items' => $productsForStripe,
             'mode' => 'payment',
-            'success_url' => $YOUR_DOMAIN . '/commande/valide/{CHECKOUT_SESSION_ID}',
-            'cancel_url' => $YOUR_DOMAIN . '/commande/echec/{CHECKOUT_SESSION_ID}',
+            'success_url' => $YOUR_DOMAIN . '/order/success/{CHECKOUT_SESSION_ID}',
+            'cancel_url' => $YOUR_DOMAIN . '/order/fail/{CHECKOUT_SESSION_ID}',
         ]);
         $order->setStripeSession($checkout_session->id);
         $em->flush();
@@ -71,32 +71,32 @@ class PaymentController extends AbstractController
 
 
     /**
-     * Méthode appelée lorsque le paiement est validé
+     * Method called when payment is validated
      */
-    #[Route('/commande/valide/{stripeSession}', name: 'payment_success')]
+    #[Route('/order/success/{stripeSession}', name: 'payment_success')]
     public function paymentSuccess(OrderRepository $repository, $stripeSession, EntityManagerInterface $em, Cart $cart) 
     {
         $order = $repository->findOneByStripeSession($stripeSession);
         if (!$order || $order->getUser() != $this->getUser()) {
-            throw $this->createNotFoundException('Commande innaccessible');
+            throw $this->createNotFoundException('Order inaccessible');
         }
         if (!$order->getState()) {
             $order->setState(1);
             $em->flush();
         }
 
-        // Envoi mail de Confirmation
+        // Send Confirmation email
         $user = $this->getUser();
 
-        $content = "Bonjour {$user->getFirstName()} nous vous remercions de votre commande";
+        $content = "Hello {$user->getFirstName()}, thank you for your order.";
         (new Mail)->send(
             $user->getEmail(), 
             $user->getFirstName(), 
-            "Confirmation de la commande {$order->getReference()}", 
+            "Confirmation of order {$order->getReference()}", 
             $content
         );
 
-        // Suppression du panier une fois la commande validée
+        // Delete cart once order is validated
         $cart->remove();    
         return $this->render('payment/success.html.twig', [
             'order' => $order
@@ -104,14 +104,14 @@ class PaymentController extends AbstractController
     }
 
     /**
-     * Commande annullée (clic sur retour dans la fenêtre)
+     * Order cancelled (user clicked back in the window)
      */
-    #[Route('/commande/echec/{stripeSession}', name: 'payment_fail')]
+    #[Route('/order/fail/{stripeSession}', name: 'payment_fail')]
     public function paymentFail(OrderRepository $repository, $stripeSession) 
     {
         $order = $repository->findOneByStripeSession($stripeSession);
         if (!$order || $order->getUser() != $this->getUser()) {
-            throw $this->createNotFoundException('Commande innaccessible');
+            throw $this->createNotFoundException('Order inaccessible');
         }
 
         return $this->render('payment/fail.html.twig', [
