@@ -11,13 +11,10 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
-use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Security\Http\Authentication\UserAuthenticatorInterface;
 
-/**
- * Formulaire d'Sign-up créé manuellement
- * Une fois inscris, l'utilisateur est automatiquement authentifié.
- */
+
 class RegisterController extends AbstractController
 {
     #[Route('/Sign-up', name: 'register')]

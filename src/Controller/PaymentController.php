@@ -11,13 +11,11 @@ use Stripe\Checkout\Session;
 use Stripe\Stripe;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\Attribute\Route;
 
 class PaymentController extends AbstractController
 {
-    /**
-     * Verification step before payment confirmation
-     */
+
     #[Route('/order/checkout/{reference}', name: 'checkout')]
     public function payment(OrderRepository $repository, $reference, EntityManagerInterface $em): Response
     {
